@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricvibes - Sports Media</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #00ff87;
+            --dark-green: #008f5e;
+            --dark-bg: #0a0a0a;
+            --medium-bg: #121212;
+            --light-text: #f0f0f0;
+            --gray-text: #b0b0b0;
+            --card-bg: #1a1a1a;
+            --gradient: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 50%, var(--dark-bg) 100%);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--medium-bg);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary-green);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 0;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23008f5e" opacity="0.1"/><path d="M0,50 L100,50 M50,0 L50,100" stroke="%2300ff87" stroke-width="1" opacity="0.1"/></svg>');
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary-green), #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--dark-bg);
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 135, 0.2);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* Breaking News */
+        .breaking-news {
+            background-color: var(--medium-bg);
+        }
+
+        .breaking-news-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .breaking-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .breaking-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .breaking-content {
+            padding: 25px;
+        }
+
+        .breaking-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-green);
+        }
+
+        .breaking-content p {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+        }
+
+        /* Latest News */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .news-item {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .news-item:hover {
+            background-color: #222;
+        }
+
+        .news-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--light-text);
+        }
+
+        .news-item p {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+        }
+
+        /* Match Updates */
+        .match-updates {
+            background-color: var(--medium-bg);
+        }
+
+        .score-card {
+            background: var(--gradient);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: var(--dark-bg);
+            margin-bottom: 30px;
+        }
+
+        .teams {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .team {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .vs {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .match-status {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .players {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .player-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .player-name {
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+
+        .player-stats {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        /* Featured Story */
+        .featured-story {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border-left: 6px solid var(--primary-green);
+        }
+
+        .featured-story h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .featured-story p {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: var(--light-text);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #050505;
+            padding: 50px 0 20px;
+            border-top: 1px solid #333;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .about-text {
+            color: var(--gray-text);
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .copyright {
+            text-align: center;
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .breaking-news-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .players {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Cricvibes</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#latest">Latest News</a></li>
+                        <li><a href="#matches">Match Updates</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>INDIA WINS THRILLER BY 5 RUNS</h1>
+            <p>Last-over drama as Pandya defends 12 runs in final over. India takes 2-0 lead in series against England.</p>
+            <a href="#latest" class="cta-button">Read Latest Updates</a>
+        </div>
+    </section>
+
+    <!-- Breaking News Section -->
+    <section class="breaking-news">
+        <div class="container">
+            <h2 class="section-title">Breaking News</h2>
+            <div class="breaking-news-grid">
+                <div class="breaking-card">
+                    <div class="breaking-content">
+                        <h3>Kohli Announces ODI Comeback</h3>
+                        <p>Former captain Virat Kohli confirms his return to ODI cricket for the upcoming Asia Cup after a break of 8 months.</p>
+                    </div>
+                </div>
+                <div class="breaking-card">
+                    <div class="breaking-content">
+                        <h3>New IPL Franchise Unveiled</h3>
+                        <p>Ahmedabad officially announced as the 11th IPL team. Mega auction scheduled for December 2024.</p>
+                    </div>
+                </div>
+                <div class="breaking-card">
+                    <div class="breaking-content">
+                        <h3>ICC Rule Changes Approved</h3>
+                        <p>New playing conditions include two bouncers per over and stricter time limits between overs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section id="latest">
+        <div class="container">
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-list">
+                <div class="news-item">
+                    <h3>Australia Tour Schedule Announced</h3>
+                    <p>India to play 5 Tests, 3 ODIs, and 3 T20Is in Australia starting November. First Test at Perth Stadium.</p>
+                </div>
+                <div class="news-item">
+                    <h3>Bumrah Reaches 150 Test Wickets</h3>
+                    <p>Fastest Indian pacer to reach the milestone, achieving it in just 34 Test matches.</p>
+                </div>
+                <div class="news-item">
+                    <h3>Domestic Season Structure Revised</h3>
+                    <p>BCCI announces new format for Ranji Trophy with two groups of elite teams and one plate group.</p>
+                </div>
+                <div class="news-item">
+                    <h3>Women's T20 Challenge Expanded</h3>
+                    <p>Tournament to feature four teams instead of three, with two additional overseas players allowed per team.</p>
+                </div>
+                <div class="news-item">
+                    <h3>New Bowling Action Review Center</h3>
+                    <p>ICC opens state-of-the-art facility in Dubai for comprehensive bowling action analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Match Updates Section -->
+    <section class="match-updates" id="matches">
+        <div class="container">
+            <h2 class="section-title">Live Match Updates</h2>
+            
+            <div class="score-card">
+                <div class="teams">
+                    <div class="team">INDIA</div>
+                    <div class="vs">VS</div>
+                    <div class="team">ENGLAND</div>
+                </div>
+                <div class="score">318/5 (45.2) | 315/9 (50)</div>
+                <div class="match-status">India needs 3 runs from 28 balls</div>
+            </div>
+            
+            <div class="players">
+                <div class="player-card">
+                    <div class="player-name">Rohit Sharma</div>
+                    <div class="player-stats">127 runs (115 balls) • 12 fours, 5 sixes</div>
+                </div>
+                <div class="player-card">
+                    <div class="player-name">Jasprit Bumrah</div>
+                    <div class="player-stats">3/42 in 10 overs • Economy: 4.20</div>
+                </div>
+                <div class="player-card">
+                    <div class="player-name">Joe Root</div>
+                    <div class="player-stats">89 runs (98 balls) • 8 fours, 1 six</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Story -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Featured Story</h2>
+            <div class="featured-story">
+                <h2>The Rise of Test Cricket's New Generation</h2>
+                <p>In an era dominated by T20 leagues and franchise cricket, a new generation of players is redefining Test cricket. From England's 'Bazball' approach to India's aggressive home dominance, the longest format is witnessing its most exciting phase in decades.</p>
+                <p>Youngsters like Shubman Gill, Harry Brook, and Cameron Green are blending traditional techniques with modern aggression, creating a perfect storm of entertainment and competition. This feature explores how Test cricket is not just surviving but thriving in the 21st century.</p>
+                <a href="#" class="read-more">Continue Reading →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="about-text">
+                    <h3>About Cricvibes</h3>
+                    <p>Cricvibes is your premier destination for comprehensive cricket coverage. We bring you breaking news, in-depth analysis, live scores, and exclusive insights from around the cricketing world. Our team of experienced journalists and former players ensure you never miss a moment of the action.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Cricvibes Sports Media. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html><!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Hello, World!</title>
+</head>
+<body>
+  <h1>
+    Hello, World!
+  </h1>
+</body>
+</html>
